@@ -22,7 +22,7 @@ export default function Store() {
 
   useEffect(() => {
     const getItems = () =>{
-      axios('http://localhost:5000/api/getAllShops', {
+      axios(`${process.env.REACT_APP_API}api/getAllShops`, {
         headers: { authorization: getToken()}
       }).then((res)=>steProducts(res.data));
     }
@@ -34,7 +34,7 @@ export default function Store() {
   }
 
   const removeItem = useCallback (async (itemId) => {
-    await axios('http://localhost:5000/api/removeItem', {
+    await axios(`${process.env.REACT_APP_API}api/removeItem`, {
       method: 'delete',
       params: { itemId },
       headers: { authorization: getToken() }

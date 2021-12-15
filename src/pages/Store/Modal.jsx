@@ -34,7 +34,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
   };
   useEffect(()=>{
     const getItems = () =>{
-      axios('http://localhost:5000/api/getAllItems', {
+      axios(`${process.env.REACT_APP_API}api/getAllItems`, {
         headers: { authorization: getToken()}
       }).then((res)=>steProducts(res.data));
     }
@@ -56,7 +56,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
 
   const createItem = useCallback(async () => {
     if (isEditProduct?.length) {
-      await axios('http://localhost:5000/api/createShop', {
+      await axios(`${process.env.REACT_APP_API}api/createShop`, {
         method: 'patch',
         data: {
           name,
@@ -70,7 +70,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
       });
       setIsEditProduct([])
     } else {
-      await axios('http://localhost:5000/api/createShop', {
+      await axios(`${process.env.REACT_APP_API}api/createShop`, {
         method: 'post',
         data: {
           name,

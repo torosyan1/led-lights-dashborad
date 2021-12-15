@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const { data: {token} } = await axios.post('http://localhost:5000/api/sign-in',{
+    const { data: {token} } = await axios.post(`${process.env.REACT_APP_API}/api/sign-in`,{
       identity: data.get('email'),
       password: data.get('password'),
     })

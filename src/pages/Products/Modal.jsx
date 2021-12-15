@@ -33,7 +33,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
 
   const createItem = useCallback(async () => {
     if (isEditProduct.length) {
-      await axios('http://localhost:5000/api/updateItem', {
+      await axios(`${process.env.REACT_APP_API}api/updateItem`, {
         method: 'patch',
         data: {
           name,
@@ -48,7 +48,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
       });
       setIsEditProduct([])
     } else {
-     const items = await axios('http://localhost:5000/api/createItem', {
+     const items = await axios(`${process.env.REACT_APP_API}api/createItem`, {
         method: 'post',
         data: {
           name,
@@ -61,7 +61,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
         }
       });
       const { data } = items
-      await axios('http://localhost:5000/api/uploadImage',{
+      await axios(`${process.env.REACT_APP_API}api/uploadImage`,{
         method: 'post',
         data: {
           itemId: data?.itemId

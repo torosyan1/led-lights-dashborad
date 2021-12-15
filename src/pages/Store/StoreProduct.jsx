@@ -21,7 +21,7 @@ export default function StoreProduct() {
   const shopId = window.location.pathname.split('/')[3];
   useEffect(() => {
     const getItems = async () =>{
-        await axios('http://localhost:5000/api/getAllItems', {
+        await axios(`${process.env.REACT_APP_API}api/getAllItems`, {
           headers: { authorization: getToken()}
         }).then((res)=>steProducts(res.data));
       }
@@ -31,7 +31,7 @@ export default function StoreProduct() {
 
   const addList = async (e, itemId, price) => {
       console.log(count);
-    await axios('http://localhost:5000/api/addItemToShop', {
+    await axios(`${process.env.REACT_APP_API}api/addItemToShop`, {
         method: 'post',
         data: {
             shopId,
@@ -46,7 +46,7 @@ export default function StoreProduct() {
   };
   const getSelectedProduct = async ()=>{
     if (!seletedItems?.length){
-      const selectedItems = await axios('http://localhost:5000/api/getShop', {
+      const selectedItems = await axios(`${process.env.REACT_APP_API}api/getShop`, {
         params: { shopId },
         headers: { authorization: getToken()}
       })

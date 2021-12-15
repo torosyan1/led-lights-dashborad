@@ -20,7 +20,7 @@ export default function CheckboxListSecondary() {
 
   useEffect(() => {
     const getItems = () =>{
-      axios('http://localhost:5000/api/getAllItems', {
+      axios(`${process.env.REACT_APP_API}api/getAllItems`, {
         headers: { authorization: getToken()}
       }).then((res)=>steProducts(res.data));
     }
@@ -32,7 +32,7 @@ export default function CheckboxListSecondary() {
   }
 
   const removeItem = useCallback (async (itemId) => {
-    await axios('http://localhost:5000/api/removeItem', {
+    await axios(`${process.env.REACT_APP_API}api/removeItem`, {
       method: 'delete',
       params: { itemId },
       headers: { authorization: getToken() }

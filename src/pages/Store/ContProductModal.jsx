@@ -33,7 +33,7 @@ export default function ConutModal({ open, setOpen, setRender, setIsEditProduct,
   };
   useEffect(()=>{
     const getItems = () =>{
-      axios('http://localhost:5000/api/getAllItems', {
+      axios(`${process.env.REACT_APP_API}api/getAllItems`, {
         headers: { authorization: getToken()}
       }).then((res)=>steProducts(res.data));
     }
