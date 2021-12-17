@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,10 +22,17 @@ const theme = createTheme();
 const Login = () => {
   const navigate = useNavigate();
 
+  useEffect(()=>{
+   const token  = localStorage.getItem('token')
+   if(token) {
+    return navigate("/dashboard");
+   }
+  },[navigate])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const { data: {token} } = await axios.post(`${process.env.REACT_APP_API}/api/sign-in`,{
+    const { data: {token} } = await axios.post(`${process.env.REACT_APP_API}api/sign-in`,{
       identity: data.get('email'),
       password: data.get('password'),
     })

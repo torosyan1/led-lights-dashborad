@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -74,6 +74,12 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  const token  = localStorage.getItem('token');
+  useEffect(()=>{
+    if(!token) {
+      window.location.href= '/'
+   }
+  },[token])
 
   return (
     <ThemeProvider theme={mdTheme}>
