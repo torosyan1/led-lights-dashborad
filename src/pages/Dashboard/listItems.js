@@ -8,17 +8,22 @@ import StoreIcon from '@mui/icons-material/Store';
 import { map } from 'lodash';
 import { Link } from '@mui/material';
 
-const list = [{name: 'Stories', icon: <StoreIcon />, href: '/dashboard/stories' }, {name: 'Products', icon: <ProductionQuantityLimitsIcon />, href: '/dashboard/products'}, {name: 'Log out', icon: <LoginIcon />, onClick: () => {
-  localStorage.removeItem('token');
-  window.location.href='/'
-} }];
-
+const list = [{name: 'Stories', icon: <StoreIcon />, href: '/dashboard/stories' }, {name: 'Products', icon: <ProductionQuantityLimitsIcon />, href: '/dashboard/products'}, {name: 'Log out', icon: <LoginIcon /> }];
+const click = (href) => {
+  console.log(href);
+  if(href){ 
+    window.location.href=href
+  } else {
+    localStorage.removeItem('token');
+    window.location.href='/'
+  }
+}
 export const mainListItems = (
   <div>
       {map(list, (elem, index)=>{
           return (
-            <ListItem key={index} button>
-            <ListItemIcon onClick={elem?.onClick}>
+            <ListItem href={elem.href} key={index} button>
+            <ListItemIcon onClick={() => click(elem.href)}>
               {elem.icon}
             </ListItemIcon>
             <Link href={elem.href}>

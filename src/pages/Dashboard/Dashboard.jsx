@@ -69,11 +69,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
   const token  = localStorage.getItem('token');
   useEffect(()=>{
     if(!token) {
@@ -95,7 +92,6 @@ function DashboardContent() {
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
               sx={{
                 marginRight: '36px',
                 ...(open && { display: 'none' }),
@@ -123,7 +119,7 @@ function DashboardContent() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            <IconButton>
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
