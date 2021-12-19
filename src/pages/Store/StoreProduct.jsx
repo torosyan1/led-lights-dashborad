@@ -63,7 +63,7 @@ export default function StoreProduct() {
     <List dense sx={{ width: '100%' }}>
       <Button style={{ backgroundColor: 'black'  }} variant='contained' onClick={getSelectedProduct}>{seletedItems?.length ? 'Back to shop'  :'See All Selected Product'}</Button>
       {seletedItems?.length===0 && products?.length && products.map((value) => {
-        const { name, price, itemId } = value;
+        const { name, price, itemId, code } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
         return (
           <ListItem
@@ -87,6 +87,7 @@ export default function StoreProduct() {
               </ListItemAvatar>
               <ListItemText id={labelId} primary={name} />
               <ListItemText id={labelId} primary={price} />
+              <ListItemText id={labelId} primary={code} />
               <TextField id="outlined-basic"  label="Count" onClick={(e)=>setCount(e.target.value)} onChange={(e)=>setCount(e.target.value)} variant="outlined" />
               <Button variant='contained' onClick={(e) => addList(e, itemId, price)}>Add List</Button>
             </ListItemButton>
