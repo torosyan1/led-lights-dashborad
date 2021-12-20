@@ -8,7 +8,7 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
 import getToken from '../../utils/getToken';
-import { Button } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import BasicModal from './Modal';
 import axios from 'axios';
 
@@ -17,6 +17,7 @@ export default function CheckboxListSecondary() {
   const [products, steProducts] = useState([])
   const [render, setRender] = useState(0)
   const [isEditProduct, setIsEditProduct] = useState(false)
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     const getItems = () =>{
@@ -24,9 +25,20 @@ export default function CheckboxListSecondary() {
         headers: { authorization: getToken()}
       }).then((res)=>steProducts(res.data));
     }
-    getItems()
-  }, [render])
+    if(search === ''){
+      getItems()
+    }
+  }, [render, search])
 
+  useEffect(() => {
+    products.map((el)=>{
+      console.log(el);
+      if(Number(search) === el.code) {
+        steProducts([el])
+      }
+    })
+  }, [search])
+ 
   const openModal = () => {
     setOpen(true)
   }
@@ -43,11 +55,16 @@ export default function CheckboxListSecondary() {
     setIsEditProduct([itemId, price])
     setOpen(true)
   };
+  const searchHandler = (e) =>{
+    setSearch(e.target.value)
+  }
   return (
     <List dense sx={{ width: '100%' }}>
-
+      <div style={{display: 'flex', justifyContent: 'space-between'  }}>
       {open && <BasicModal isEditProduct={isEditProduct} setIsEditProduct={setIsEditProduct} setRender={setRender} open={open} setOpen={setOpen} />}
       <Button variant='contained' onClick={openModal}>Add new product</Button>
+      <TextField id="outlined-basic" onChange={(e)=>searchHandler(e)} label="Search" variant="outlined" />
+      </div>
       {products?.length && products.map((value) => {
         const { name, price, count, code, itemId } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;

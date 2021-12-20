@@ -19,6 +19,24 @@ export default function StoreProduct() {
   const [seletedItems, setSeletedItems] = useState([])
   const [count, setCount] = useState('')
   const shopId = window.location.pathname.split('/')[3];
+  const [search, setSearch] = useState('');
+
+  const getSelectedProduct = async ()=>{
+    if (!seletedItems?.length){
+      const selectedItems = await axios(`${process.env.REACT_APP_API}api/getShop`, {
+        params: { shopId },
+        headers: { authorization: getToken()}
+      })
+      const { data: { items } } = selectedItems;
+      console.log(items, 'aaaa');
+      if(!items) return setSeletedItems([]);
+      setSeletedItems(items);
+      console.log(items, 'items');
+    } else {
+      setSeletedItems([]);
+    }
+  }
+
   useEffect(() => {
     const getItems = async () =>{
         await axios(`${process.env.REACT_APP_API}api/getAllItems`, {
@@ -26,8 +44,29 @@ export default function StoreProduct() {
         }).then((res)=>steProducts(res.data));
       }
       getItems()
-  }, [render])
+      if(search === ''){
+       (async ()=>{
+        const selectedItems = await axios(`${process.env.REACT_APP_API}api/getShop`, {
+          params: { shopId },
+          headers: { authorization: getToken()}
+        })
+        const { data: { items } } = selectedItems;
+        console.log(items, 'aaaa');
+        if(!items) return setSeletedItems([]);
+        setSeletedItems(items);
+        console.log(items, 'items');
+       })()
+      }
+  }, [render,search])
 
+  useEffect(() => {
+    console.log(products);
+    products.map((el)=>{
+      if(Number(search) === el.code) {
+        setSeletedItems([el])
+      }
+    })
+  }, [search])
 
   const addList = async (e, itemId, price) => {
       console.log(count);
@@ -44,24 +83,15 @@ export default function StoreProduct() {
         headers: { authorization: getToken()}
       })
   };
-  const getSelectedProduct = async ()=>{
-    if (!seletedItems?.length){
-      const selectedItems = await axios(`${process.env.REACT_APP_API}api/getShop`, {
-        params: { shopId },
-        headers: { authorization: getToken()}
-      })
-      const { data: { items } } = selectedItems;
-      console.log(items, 'aaaa');
-      if(!items) return setSeletedItems([]);
-      setSeletedItems(items);
-      console.log(items, 'items');
-    } else {
-      setSeletedItems([]);
-    }
+  const searchHandler = (e) =>{
+    setSearch(e.target.value)
   }
   return (
     <List dense sx={{ width: '100%' }}>
+      <div style={{display: 'flex', justifyContent: 'space-between'  }}>
       <Button style={{ backgroundColor: 'black'  }} variant='contained' onClick={getSelectedProduct}>{seletedItems?.length ? 'Back to shop'  :'See All Selected Product'}</Button>
+      {seletedItems?.length  && <TextField id="outlined-basic" onChange={(e)=>searchHandler(e)} label="Search" variant="outlined" />}
+      </div>
       {seletedItems?.length===0 && products?.length && products.map((value) => {
         const { name, price, itemId, code } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
@@ -99,6 +129,7 @@ export default function StoreProduct() {
             return <ListItem>
               <ListItemText id={item.id} primary={item.name} />
               <ListItemText id={item.id} primary={item.count} />
+              <ListItemText id={item.id} primary={item.code} />
               <>
                 <ModeEditIcon style={{ cursor: 'pointer' }} />
                 <DeleteIcon style={{ cursor: 'pointer' }} />
