@@ -26,7 +26,7 @@ export default function ConutModal({ open, setOpen, setRender, setIsEditProduct,
   const [description, setDescription] = useState();
   const [products, steProducts] =useState();
   const [checked, setChecked] = useState([]);
-   console.log(products, checked);
+
   const handleClose = () =>{ 
     setOpen(false)
     setOpen(false)

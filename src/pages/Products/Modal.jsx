@@ -33,6 +33,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
 
   const createItem = useCallback(async () => {
     if (isEditProduct.length) {
+      console.log('llll')
       await axios(`${process.env.REACT_APP_API}api/updateItem`, {
         method: 'patch',
         data: {
@@ -54,7 +55,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
           name,
           price: Number(price),
           count,
-          code
+          code,
         },
         headers: {
           authorization: getToken(),
@@ -88,8 +89,6 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
           <TextField onChange={(e) => setPrice(e.target.value)} id="outlined-basic" label="Price" variant="standard" />
           <TextField onChange={(e) => setCount(e.target.value)} id="outlined-basic" label="Count" variant="standard" />
           <TextField onChange={(e) => setCode(e.target.value)} id="outlined-basic" label="Code" variant="standard" />
-          <TextField onChange={(e) => setImage(e.target.value)} id="outlined-basic" label="Code" variant="standard" type='file' />
-
           <Button onClick={createItem}>{!isEditProduct.length ? 'Create Product' : 'Edit Product'}</Button>
         </Box>
       </Modal>

@@ -18,7 +18,6 @@ export default function Store() {
   const [products, steProducts] = useState([])
   const [render, setRender] = useState(0)
   const [isEditProduct, setIsEditProduct] = useState(false)
-  console.log(products);
 
   useEffect(() => {
     const getItems = () =>{
@@ -48,8 +47,10 @@ export default function Store() {
   return (
     <List dense sx={{ width: '100%' }}>
 
-      {open && <BasicModal setIsEditProduct={setIsEditProduct} setRender={setRender} open={open} setOpen={setOpen} />}
+      {open && <BasicModal setIsEditProduct={setIsEditProduct} isEditProduct={isEditProduct} setRender={setRender} open={open} setOpen={setOpen} />}
+      <div style={{ display: 'flex', paddingLeft: '15px', paddingRight: '15px', }}>
       <Button variant='contained' onClick={openModal}>Add new stor</Button>
+      </div>
       {products?.length && products.map((value) => {
         const { name, address, description, items, shopId } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
@@ -58,8 +59,8 @@ export default function Store() {
             key={name}
             secondaryAction={
               <>
-                <ModeEditIcon onClick={()=>editItem(shopId, address)} style={{ cursor: 'pointer' }} />
-                <DeleteIcon onClick={() => removeItem(shopId)} style={{ cursor: 'pointer' }} />
+                <ModeEditIcon onClick={()=>editItem(shopId, address)} style={{ cursor: 'pointer', color: '#1976d2' }} />
+                <DeleteIcon onClick={() => removeItem(shopId)} style={{ cursor: 'pointer', color: '#ef5350'  }} />
               </>
             }
             disablePadding

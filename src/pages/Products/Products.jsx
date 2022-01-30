@@ -60,7 +60,7 @@ export default function CheckboxListSecondary() {
   }
   return (
     <List dense sx={{ width: '100%' }}>
-      <div style={{display: 'flex', justifyContent: 'space-between'  }}>
+      <div style={{display: 'flex', paddingLeft: '15px', paddingRight: '15px', justifyContent: 'space-between'  }}>
       {open && <BasicModal isEditProduct={isEditProduct} setIsEditProduct={setIsEditProduct} setRender={setRender} open={open} setOpen={setOpen} />}
       <Button variant='contained' onClick={openModal}>Add new product</Button>
       <TextField id="outlined-basic" onChange={(e)=>searchHandler(e)} label="Search" variant="outlined" />
@@ -73,8 +73,8 @@ export default function CheckboxListSecondary() {
             key={name}
             secondaryAction={
               <>
-                <ModeEditIcon onClick={()=>editItem(itemId, price)} style={{ cursor: 'pointer' }} />
-                <DeleteIcon onClick={() => removeItem(itemId)} style={{ cursor: 'pointer' }} />
+                <ModeEditIcon onClick={()=>editItem(itemId, price)} style={{ cursor: 'pointer', color: '#1976d2' }} />
+                <DeleteIcon onClick={() => removeItem(itemId)} style={{ cursor: 'pointer',  color: '#ef5350' }} />
               </>
             }
             disablePadding
