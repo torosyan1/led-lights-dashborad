@@ -33,7 +33,6 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
 
   const createItem = useCallback(async () => {
     if (isEditProduct.length) {
-      console.log('llll')
       await axios(`${process.env.REACT_APP_API}api/updateItem`, {
         method: 'patch',
         data: {

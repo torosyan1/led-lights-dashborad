@@ -26,7 +26,6 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
   const [items, setItems] = useState();
   const [products, steProducts] =useState();
   const [checked, setChecked] = useState([]);
-   console.log(isEditProduct, 'ffffffffffffff');
 
   const handleClose = () =>{ 
     setOpen(false)
@@ -56,6 +55,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
   };
 
   const createItem = useCallback(async () => {
+    console.log(isEditProduct, 'ffffffffffffff');
     if (isEditProduct?.length) {
       console.log('aa')
       await axios(`${process.env.REACT_APP_API}api/updateShop`, {
@@ -65,6 +65,7 @@ export default function BasicModal({ open, setOpen, setRender, setIsEditProduct,
           address,
           description,
           items: checked,
+          shopId: isEditProduct[0],
         },
         headers: {
           authorization: getToken(),

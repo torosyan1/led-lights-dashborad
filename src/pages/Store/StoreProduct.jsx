@@ -27,10 +27,9 @@ export default function StoreProduct() {
         headers: { authorization: getToken()}
       })
       const { data: { items } } = selectedItems;
-      console.log(items, 'aaaa');
+
       if(!items) return setSeletedItems([]);
       setSeletedItems(items);
-      console.log(items, 'items');
     } else {
       setSeletedItems([]);
     }
@@ -68,7 +67,6 @@ export default function StoreProduct() {
   }, [search])
 
   const addList = async (e, itemId, price) => {
-      console.log(count);
     await axios(`${process.env.REACT_APP_API}api/addItemToShop`, {
         method: 'post',
         data: {
@@ -85,6 +83,7 @@ export default function StoreProduct() {
   const searchHandler = (e) =>{
     setSearch(e.target.value)
   }
+
   return (
     <List dense sx={{ width: '100%' }}>
       <div style={{display: 'flex', paddingLeft: '15px', paddingRight: '15px', justifyContent: 'space-between'  }}>
@@ -107,16 +106,16 @@ export default function StoreProduct() {
           >
             <ListItemButton>
               <ListItemAvatar>
-                  <Link href={'/dashboard/stories/'+value.shopId}>
+                  <Link href={'/dashboard/stories/'+ value.shopId ? value.shopId : ''}>
                 <Avatar
                   alt={`Avatar n°${value + 1}`}
                   src={`/static/images/avatar/${value + 1}.jpg`}
                 />
               </Link>
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={name} />
-              <ListItemText id={labelId} primary={price} />
-              <ListItemText id={labelId} primary={code} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={name} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={price} />
+              <ListItemText  style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={code} />
               <div style={{ display: 'flex' }}>
               <TextField id="outlined-basic"  label="Count" onClick={(e)=>setCount(e.target.value)} onChange={(e)=>setCount(e.target.value)} variant="outlined" />
               <Button variant='outlined' onClick={(e) => addList(e, itemId, price)}> + </Button>
@@ -128,9 +127,9 @@ export default function StoreProduct() {
       {
         sleetedItems?.length > 0 && sleetedItems.map((item)=> {
             return <ListItem>
-              <ListItemText id={item.id} primary={item.name} />
-              <ListItemText id={item.id} primary={item.count} />
-              <ListItemText id={item.id} primary={item.code} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.name} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.count} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.code} />
               <>
                 <ModeEditIcon style={{ cursor: 'pointer' }} />
                 <DeleteIcon style={{ cursor: 'pointer' }} />

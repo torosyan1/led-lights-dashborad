@@ -86,11 +86,10 @@ export default function CheckboxListSecondary() {
                   src={`/static/images/avatar/${value + 1}.jpg`}
                 />
               </ListItemAvatar>
-              <ListItemText id={labelId} primary={name} />
-              <ListItemText id={labelId} primary={price} />
-              <ListItemText id={labelId} primary={count} />
-              <ListItemText id={labelId} primary={code} />
-
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={name} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={price} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={count} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={code} />
             </ListItemButton>
           </ListItem>
         );

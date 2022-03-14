@@ -32,13 +32,13 @@ export default function Store() {
     setOpen(true)
   }
 
-  const removeItem = useCallback (async (itemId) => {
-    await axios(`${process.env.REACT_APP_API}api/removeItem`, {
+  const removeItem = useCallback (async (shopId) => {
+    await axios(`${process.env.REACT_APP_API}api/deleteShop`, {
       method: 'delete',
-      params: { itemId },
+      params: { shopId },
       headers: { authorization: getToken() }
-    });
-    setRender(itemId);
+    })
+    setRender(shopId);
   },[]) 
   const editItem = (itemId, price) =>{
     setIsEditProduct([itemId, price])
@@ -65,7 +65,7 @@ export default function Store() {
             }
             disablePadding
           >
-            <ListItemButton>
+            <ListItemButton >
               <ListItemAvatar>
                   <Link href={'/dashboard/stories/'+value.shopId}>
                 <Avatar
@@ -73,10 +73,10 @@ export default function Store() {
                   src={`/static/images/avatar/${value + 1}.jpg`}
                 />
               </Link>
-              </ListItemAvatar>
-              <ListItemText id={labelId} primary={name} />
-              <ListItemText id={labelId} primary={address} />
-              <ListItemText id={labelId} primary={description} />
+              </ListItemAvatar >
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={name} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}}  id={labelId} primary={address} />
+              <ListItemText style={{display: 'flex', justifyContent: 'center'}}  id={labelId} primary={description} />
 
             </ListItemButton>
           </ListItem>
