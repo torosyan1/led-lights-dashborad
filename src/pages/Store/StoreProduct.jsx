@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 import DeleteIcon from '@mui/icons-material/Delete';
 import getToken from '../../utils/getToken';
 import { Button, Link, TextField } from '@mui/material';
@@ -94,6 +95,7 @@ export default function StoreProduct() {
         const { name, price, itemId, code } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
         return (
+          <>
           <ListItem
             key={name}
             secondaryAction={
@@ -122,19 +124,24 @@ export default function StoreProduct() {
               </div>
             </ListItemButton>
           </ListItem>
+            <Divider variant="middle" />
+          </>
         );
       })}
       {
         sleetedItems?.length > 0 && sleetedItems.map((item)=> {
-            return <ListItem>
-              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.name} />
-              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.count} />
-              <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.code} />
-              <>
-                <ModeEditIcon style={{ cursor: 'pointer' }} />
-                <DeleteIcon style={{ cursor: 'pointer' }} />
-              </>
-            </ListItem>
+            return <><ListItem>
+            <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.name} />
+            <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.count} />
+            <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={item.id} primary={item.code} />
+            <>
+              <ModeEditIcon style={{ cursor: 'pointer' }} />
+              <DeleteIcon style={{ cursor: 'pointer' }} />
+            </>
+            <Divider variant="middle" />
+          </ListItem>
+          <Divider variant="middle" />
+          </>
         })
       }
     </List>

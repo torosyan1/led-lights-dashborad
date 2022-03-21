@@ -7,6 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Avatar from '@mui/material/Avatar';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Divider from '@mui/material/Divider';
 import getToken from '../../utils/getToken';
 import { Button, Link } from '@mui/material';
 import BasicModal from './Modal';
@@ -55,6 +56,7 @@ export default function Store() {
         const { name, address, description, items, shopId } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
         return (
+          <>
           <ListItem
             key={name}
             secondaryAction={
@@ -77,9 +79,10 @@ export default function Store() {
               <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={name} />
               <ListItemText style={{display: 'flex', justifyContent: 'center'}}  id={labelId} primary={address} />
               <ListItemText style={{display: 'flex', justifyContent: 'center'}}  id={labelId} primary={description} />
-
             </ListItemButton>
           </ListItem>
+          <Divider variant="inset"/>
+          </>
         );
       })}
     </List>

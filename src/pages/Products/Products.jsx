@@ -6,6 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 import DeleteIcon from '@mui/icons-material/Delete';
 import getToken from '../../utils/getToken';
 import { Button, TextField } from '@mui/material';
@@ -69,6 +70,7 @@ export default function CheckboxListSecondary() {
         const { name, price, count, code, itemId } = value;
         const labelId = `checkbox-list-secondary-label-${name}`;
         return (
+          <>
           <ListItem
             key={name}
             secondaryAction={
@@ -92,6 +94,9 @@ export default function CheckboxListSecondary() {
               <ListItemText style={{display: 'flex', justifyContent: 'center'}} id={labelId} primary={code} />
             </ListItemButton>
           </ListItem>
+                    <Divider variant="inset"/>
+                    </>
+
         );
       })}
     </List>
